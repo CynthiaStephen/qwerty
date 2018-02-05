@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head><title></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://use.fontawesome.com/ca15b00a18.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+margin:0px;
+font-family:'Source sans pro', sans-serif;
+background:#eeefef;
+}
+.menu-item{
+	display: block;
+	padding:10px;
+	font-size:18px;
+	font-weight:600;
+	color:#000;
+	background:#fff;
+}
+a{
+text-decoration:none;
+color:inherit;
+}
+.simple-btn{
+    display: inline-block;
+    width: 50%;
+    background: #3fab60;
+    color: #fff;
+    font-weight: 600;
+    border: 0px;
+    padding: 10px;
+	outline:none;
+}
+.red{
+background:#ce1e1e;
+}
+.topnav {
+    display: block;
+    position: fixed;
+    background: #fff;
+    width: 100vw;
+    z-index: 999;
+    top: 0;
+	height:45px;
+	border-bottom:1px solid #ccc;
+}
+.content{
+display:block;
+margin-top:55px;
+}
+.topnav div{
+    display: block;
+    margin: 10px;
+}
+</style>
+<script>
+$('document').ready(function(){
+	$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/getstat.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#mstatus").html(response);
+		}
+		});
+});
+function updateon(){
+$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/updateon.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#mstatus").html("On");
+		}
+		});
+}
+function updateoff(){
+$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/updateoff.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#mstatus").html("Off");
+		}
+		});
+}
+</script>
+</head>
+<body>
+<nav class="topnav">
+<div><a href="index.html"><i class="material-icons">arrow_back</i></a></div>
+</nav>
+<div class="content">
+<div class="menu-item">Current Motor Status - <span id="mstatus"></span></div>
+<button class="simple-btn" onclick="updateon()">On</button><button class="simple-btn red" onclick="updateoff()">Off</button>
+</div>
+</body>
+</html>

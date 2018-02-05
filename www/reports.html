@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head><title></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css">
+
+<script src="https://use.fontawesome.com/ca15b00a18.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+margin:0px;
+font-family:'Source sans pro', sans-serif;
+background:#eeefef;
+}
+.rec-item {
+    display: block;
+    margin-bottom: 10px;
+    background: #fff;
+	border-bottom: 1px solid #ccc;
+}
+.rec-date{
+    display: block;
+    padding: 5px 10px;
+    background: #3fba60;
+    color: #fff;
+    font-weight: 600;
+}
+.rec-date-alt{
+    display: block;
+    padding: 5px 10px;
+    background: #cc6666;
+    color: #fff;
+    font-weight: 600;
+}
+.rec-val{
+    display: block;
+    float: right;
+    font-weight: 600;
+	color:#000;
+}
+.rec-id{
+    display: block;
+    padding: 10px;
+	font-weight:600;
+	color:#3e3e3e;
+}
+.topnav {
+    display: block;
+    position: fixed;
+    background: #fff;
+    width: 100vw;
+    z-index: 999;
+    top: 0;
+}
+.content{
+display:block;
+margin-top:105px;
+}
+.filter{
+display:block;
+border-bottom:1px solid #ccc;
+}
+.fil {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px;
+    background: #ccc;
+    border: 0px;
+    border-radius: 5px;
+    width: 100px;
+    margin: 6px;
+    outline: none;
+}
+label{
+    display: inline-block;
+    vertical-align: middle;
+	margin-left:10px;
+	font-weight:600;
+}
+.simple-tb{
+    margin: 7px;
+    border: none;
+    background: #ccc;
+    padding: 5px;
+    width: 85px;
+    border-radius: 5px;
+}
+.sml-btn{
+    display: inline-block;
+    background: #3fba60;
+    color: #fff;
+    border: 0px;
+    outline: none;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+</style>
+<script>
+$('document').ready(function(){
+	$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/getrecords.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#records").html(response);
+		}
+		});
+	$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/getdev.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#devfil").html(response);
+		}
+		});
+});
+function search(){
+var did = $("#devfil").val();
+var fdate = $("#datea").val();
+var tdate = $("#dateb").val();
+$.ajax({
+		type		: "POST",
+		url			: "http://192.168.0.115/cynth/search.php",
+		cache		: false,
+		data        : { 'did' : did, 'fdate' : fdate, 'tdate' : tdate },
+		success		: function(response){
+		var res= response.split("|");
+		$("#records").html(res[0]);
+		if(did != ''){
+		$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Total - "+res[1]+"</div></div></div>");
+		}
+		}
+		});
+}
+</script>
+</head>
+<body>
+<nav class="topnav">
+<div class="filter">
+<label>Select device ID - </label><select id="devfil" class="fil">
+</select>
+</div>
+<div class="filter">
+<label>From</label><input id="datea" type="text" class="simple-tb">
+<label>To</label><input id="dateb" type="text" class="simple-tb">
+<button class="sml-btn" onclick="search()">Go</button>
+</div>
+</nav>
+<div class="content" id="records">
+</div>
+<script>
+$('document').ready(function(){
+$('#datea').datetimepicker({
+format:'Y-m-d H:i'
+});
+$('#dateb').datetimepicker({
+format:'Y-m-d H:i'
+});
+});
+</script>
+  <script src="jquery.datetimepicker.full.min.js"></script>
+</body>
+</html>
