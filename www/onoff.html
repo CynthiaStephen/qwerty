@@ -27,6 +27,7 @@ background:#eeefef;
 	font-weight:600;
 	color:#000;
 	background:#fff;
+	margin-top: 10px;
 }
 a{
 text-decoration:none;
@@ -68,7 +69,7 @@ margin-top:55px;
 $('document').ready(function(){
 	$.ajax({
 		type		: "POST",
-		url			: "http://192.168.0.115/cynth/getstat.php",
+		url			: "getstat.php",
 		cache		: false,
 		contentType	: false,
 		processData	: false,
@@ -76,11 +77,21 @@ $('document').ready(function(){
 		$("#mstatus").html(response);
 		}
 		});
+		$.ajax({
+		type		: "POST",
+		url			: "getstat2.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#nstatus").html(response);
+		}
+		});
 });
 function updateon(){
 $.ajax({
 		type		: "POST",
-		url			: "http://192.168.0.115/cynth/updateon.php",
+		url			: "updateon.php",
 		cache		: false,
 		contentType	: false,
 		processData	: false,
@@ -92,12 +103,36 @@ $.ajax({
 function updateoff(){
 $.ajax({
 		type		: "POST",
-		url			: "http://192.168.0.115/cynth/updateoff.php",
+		url			: "updateoff.php",
 		cache		: false,
 		contentType	: false,
 		processData	: false,
 		success		: function(response){
 		$("#mstatus").html("Off");
+		}
+		});
+}
+function updateonn(){
+$.ajax({
+		type		: "POST",
+		url			: "updateonn.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#nstatus").html("On");
+		}
+		});
+}
+function updateofff(){
+$.ajax({
+		type		: "POST",
+		url			: "updateofff.php",
+		cache		: false,
+		contentType	: false,
+		processData	: false,
+		success		: function(response){
+		$("#nstatus").html("Off");
 		}
 		});
 }
@@ -108,8 +143,10 @@ $.ajax({
 <div><a href="index.html"><i class="material-icons">arrow_back</i></a></div>
 </nav>
 <div class="content">
-<div class="menu-item">Current Motor Status - <span id="mstatus"></span></div>
+<div class="menu-item">Current Motor-1 Status - <span id="mstatus"></span></div>
 <button class="simple-btn" onclick="updateon()">On</button><button class="simple-btn red" onclick="updateoff()">Off</button>
+<div class="menu-item">Current Motor-2 Status - <span id="nstatus"></span></div>
+<button class="simple-btn" onclick="updateonn()">On</button><button class="simple-btn red" onclick="updateofff()">Off</button>
 </div>
 </body>
 </html>
