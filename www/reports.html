@@ -138,11 +138,19 @@ $.ajax({
 		cache		: false,
 		data        : { 'did' : did, 'fdate' : fdate, 'tdate' : tdate },
 		success		: function(response){
-		var res= response.split("|");
+		//var res= response.split("|");
+			var res= response.split("|");
 		$("#records").html(res[0]);
-		if(did != ''){
-		$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Total - "+res[1]+"</div></div></div>");
+		var tempp = res[1]*3;
+		tempp=tempp.toFixed();
+			if(did != ''){
+		$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Cost - "+tempp+"</div><div class='rec-val'>Total - "+res[1]+"</div></div></div>");
 		}
+		
+		//$("#records").html(res[0]);
+		//if(did != ''){
+		//$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Total - "+res[1]+"</div></div></div>");
+		//}
 		}
 		});
 }
