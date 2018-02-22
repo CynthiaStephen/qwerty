@@ -143,8 +143,10 @@ $.ajax({
 		$("#records").html(res[0]);
 		var tempp = res[1]*3;
 		tempp=tempp.toFixed();
-			if(did != ''){
-		$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Cost - "+tempp+"</div><div class='rec-val'>Total - "+res[1]+"</div></div></div>");
+			if(did != '')
+			{
+$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>&nbsp &nbsp &nbsp  Cost Rs - "+tempp+"  </div><div class='rec-val'>Total Volume - "+res[1]+" L  </div></div></div>");
+		//$("#records").append("<div class='rec-item'><div class='rec-date-alt'>Total Value</div><div class='rec-id'>Device ID - " +did+ "<div class='rec-val'>Cost - "+tempp+"</div><div class='rec-val'>Total - "+res[1]+"</div></div></div>");
 		}
 		
 		//$("#records").html(res[0]);
